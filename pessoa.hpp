@@ -57,6 +57,7 @@ class Pessoa{
           this->inserirfilho(novo);
         }
       }
+<<<<<<< HEAD
 
   };
   void Ordem (){
@@ -78,6 +79,9 @@ class Pessoa{
       }
       delete this;
     };
+=======
+  };
+>>>>>>> 234a9056b846971c6255d75634d5b3c6710143b1
 };
 
   class Pessoafisica:public Pessoa{
