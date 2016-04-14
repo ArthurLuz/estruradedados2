@@ -7,24 +7,26 @@ class Pessoa{
   protected:
   string nome;
   int idade;
-  Pessoa *dir;
-  Pessoa *esq;
+
 
 //metodos da classe
   public:
-//construtor
+
+    Pessoa *dir;
+    Pessoa *esq;
+    //construtor
   Pessoa(){
   nome="";
   idade=0;
-  dir==NULL;
-  esq==NULL;
+  dir=NULL;
+  esq=NULL;
   };
 //construtor com parametros , polimorfismo do tipo sobrecarga
   Pessoa(string n, int i){
   nome=n;
   idade=i;
-  dir==NULL;
-  esq==NULL;
+  dir=NULL;
+  esq=NULL;
   };
 //metodos destrutor
   ~Pessoa(){
@@ -57,31 +59,43 @@ class Pessoa{
           this->inserirfilho(novo);
         }
       }
-<<<<<<< HEAD
-
   };
-  void Ordem (){
-      if (esq != NULL){
-        this->esq->Ordem();
-      }
-      cout << " " << this->nome;
-      if (dir != NULL){
-          this->dir->Ordem();
-      }
+
+    void Ordem () {
+      if(this->esq != NULL){
+              this->esq->Ordem();
+            }
+            cout << "Idade: " << this->getidade() << endl;
+
+            if(this->dir != NULL){
+              this->dir->Ordem();
+            }
+
     };
     // deleteando posordem
     void Delete (){
       if (esq != NULL){
         this->esq->Delete();
       }
-      if (dir != NULL){
+       if (dir != NULL){
           this->dir->Delete();
-      }
+        }
+
       delete this;
+
     };
-=======
-  };
->>>>>>> 234a9056b846971c6255d75634d5b3c6710143b1
+    int busca (Pessoa *raiz, int k) {
+    if ( raiz->idade == k){
+      cout << "achou"  <<endl;
+       return k;
+     }
+    if (raiz->idade > k)
+       return busca (raiz->esq, k);
+    else
+       return busca (raiz->dir, k);
+};
+
+
 };
 
   class Pessoafisica:public Pessoa{
