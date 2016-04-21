@@ -46,54 +46,87 @@ class Pessoa{
     idade= i;
   };
   void inserirfilho(Pessoa *novo){
-      if (this->idade <= novo->idade) {
-          if(esq==NULL){
-            this->esq = novo;
-          }else{
+      if (this->idade >= novo->idade) {
+        cout << " if " << endl;
+          if(this->esq!=NULL){
+            cout << "if ( 1 if " << endl;
             this->inserirfilho(novo);
+          }else{
+            this->esq = novo;
           }
       }else{
-        if(dir==NULL){
-          this->dir = novo;
+        cout << "else if " << endl;
+        if(this->dir!=NULL){
+          cout << "if ( 2 if " << endl;
+          this->dir->inserirfilho(novo);
         }else{
-          this->inserirfilho(novo);
+          this->dir = novo;
         }
       }
   };
-
+//============Impromir=========================================================
     void Ordem () {
-      if(this->esq != NULL){
-              this->esq->Ordem();
-            }
-            cout << "Idade: " << this->getidade() << endl;
+      if(this->esq != NULL)
+        this->esq->Ordem();
 
-            if(this->dir != NULL){
-              this->dir->Ordem();
-            }
+      cout << "nome: " <<this->getnome()<< endl;
+      cout << "Idade: " << this->getidade() << endl;
 
+      if(this->dir != NULL)
+      this->dir->Ordem();
     };
+    void PreOrdem () {
+      cout << "nome: " <<this->getnome()<< endl;
+      cout << "Idade: " << this->getidade() << endl;
+
+      if(this->esq != NULL)
+        this->esq->PreOrdem();
+
+      if(this->dir != NULL)
+      this->dir->PreOrdem();
+    };
+    void PosOrdem () {
+      if(this->esq != NULL)
+        this->esq->PosOrdem();
+
+      if(this->dir != NULL)
+      this->dir->PosOrdem();
+
+      cout << "nome: " <<this->getnome()<< endl;
+      cout << "Idade: " << this->getidade() << endl;
+    };
+    //============================================================================
     // deleteando posordem
     void Delete (){
       if (esq != NULL){
         this->esq->Delete();
-      }
+      }//else return NULL;
        if (dir != NULL){
           this->dir->Delete();
-        }
+        }//else return NULL;
 
       delete this;
 
     };
-    int busca (Pessoa *raiz, int k) {
-    if ( raiz->idade == k){
-      cout << "achou"  <<endl;
-       return k;
-     }
-    if (raiz->idade > k)
-       return busca (raiz->esq, k);
-    else
-       return busca (raiz->dir, k);
-};
+
+    Pessoa *busca (int k) {
+    if ( this->idade == k){
+        cout << "achou aki"  <<endl;
+        return this;
+      }else{
+        if(k > this->idade){
+            if(this->dir != NULL)
+              this->dir->busca(k);
+            else
+              return NULL;
+          }else{
+            if(this->esq != NULL)
+              this->esq->busca(k);
+            else
+              return NULL;
+          }
+      }
+    };
 
 
 };
