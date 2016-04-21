@@ -127,6 +127,41 @@ class Pessoa{
           }
       }
     };
+    Pessoa *removefilho(int k){
+      raiz->busca(k);
+          // if(this->dir == NULL && this->esq==NULL)
+          //   cout << "removendo :"<<this->getnome()<<endl;
+          //   delete this;
+          // else{
+          //   if(this->dir == NULL && this->esq!=NULL){ //90
+          //     if(this->esq->esq==NULL && this->esq->dir==NULL){// verifica se 80 tem filho
+          //       this->esq->esq
+          //     }
+          //
+          //   }
+          // }
+          if (raiz == NULL) {
+                cout <<"Arvore vazia "<<endl;
+            }
+            if (k < raiz->getidade()) {
+                this->esq = removefilho(this->esq->getidade());
+            }
+            else if (k > this->getidade()) {
+                this->dir = remover(this->dir, k);
+            }
+            // else if (node.esquerda != null && node.direita != null){
+            //     System.out.println("Removeu No com a matricula " + node.valor.matricula);
+            //     node.valor.matricula = node.encontraMinimo(node.direita).valor.matricula;
+            //     node.direita = node.removeMinimo(node.direita);
+            // }
+            // else {
+            //     System.out.println("Removeu No com a matricula " + node.valor.matricula);
+            //     node = (node.esquerda == null) ? node.esquerda : node.direita;
+            // }
+            // return node;
+
+
+    };
 
 
 };
