@@ -14,12 +14,14 @@ class Pessoa{
 
     Pessoa *dir;
     Pessoa *esq;
+    Pessoa *pai;
     //construtor
   Pessoa(){
   nome="";
   idade=0;
   dir=NULL;
   esq=NULL;
+  pai=NULL;
   };
 //construtor com parametros , polimorfismo do tipo sobrecarga
   Pessoa(string n, int i){
@@ -27,6 +29,7 @@ class Pessoa{
   idade=i;
   dir=NULL;
   esq=NULL;
+  pai=NULL;
   };
 //metodos destrutor
   ~Pessoa(){
@@ -47,20 +50,22 @@ class Pessoa{
   };
   void inserirfilho(Pessoa *novo){
       if (this->idade >= novo->idade) {
-        cout << " if " << endl;
+      //cout << " if " << endl;
           if(this->esq!=NULL){
-            cout << "if ( 1 if " << endl;
-            this->inserirfilho(novo);
+        //    cout << "if ( 1 if " << endl;
+            this->esq->inserirfilho(novo);
           }else{
             this->esq = novo;
+            novo->pai = this;
           }
       }else{
-        cout << "else if " << endl;
+        //cout << "else if " << endl;
         if(this->dir!=NULL){
-          cout << "if ( 2 if " << endl;
+          //cout << "if ( 2 if " << endl;
           this->dir->inserirfilho(novo);
         }else{
           this->dir = novo;
+          novo->pai = this;
         }
       }
   };
@@ -127,41 +132,36 @@ class Pessoa{
           }
       }
     };
-    Pessoa *removefilho(int k){
-      raiz->busca(k);
-          // if(this->dir == NULL && this->esq==NULL)
-          //   cout << "removendo :"<<this->getnome()<<endl;
-          //   delete this;
-          // else{
-          //   if(this->dir == NULL && this->esq!=NULL){ //90
-          //     if(this->esq->esq==NULL && this->esq->dir==NULL){// verifica se 80 tem filho
-          //       this->esq->esq
-          //     }
-          //
-          //   }
-          // }
-          if (raiz == NULL) {
-                cout <<"Arvore vazia "<<endl;
-            }
-            if (k < raiz->getidade()) {
-                this->esq = removefilho(this->esq->getidade());
-            }
-            else if (k > this->getidade()) {
-                this->dir = remover(this->dir, k);
-            }
-            // else if (node.esquerda != null && node.direita != null){
-            //     System.out.println("Removeu No com a matricula " + node.valor.matricula);
-            //     node.valor.matricula = node.encontraMinimo(node.direita).valor.matricula;
-            //     node.direita = node.removeMinimo(node.direita);
-            // }
-            // else {
-            //     System.out.println("Removeu No com a matricula " + node.valor.matricula);
-            //     node = (node.esquerda == null) ? node.esquerda : node.direita;
-            // }
-            // return node;
-
-
+    Pessoa *removefilhofolha(Pessoa *e){
+        //============== Metodo Apaga folha =================
+        if(e->dir==NULL && e->esq==NULL){
+            if(e->pai->dir==e){
+                e->pai->dir=NULL;
+            delete e;
+        }else{
+            e->pai->esq=NULL;
+            delete e;
+        }
     };
+    Pessoa *remove1filho(Pessoa *e){
+        if(e->esq == NULL){ // verifica se o filho esta na esquerda ou direita
+          e->dir->pai = e->pai; //o pai do filho q vai ser deletado passa a ser o avo
+          if(e->pai->dir == e){
+            e->pai->dir= e->dir; //pai do e recebe o filho do e como filho
+          }else{
+            e->pai->esq = e->dir;
+          }
+          delete e;
+        }else{
+            e->esq->pai = e->pai;
+          if(e->pai->esq == e){
+            e->pai->esq = e->esq;
+          }else{
+            e->pai->dir = e->esq;
+          }
+          delete e;
+        }
+    }
 
 
 };
