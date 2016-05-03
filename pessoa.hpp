@@ -137,10 +137,13 @@ class Pessoa{
         if(e->dir==NULL && e->esq==NULL){
             if(e->pai->dir==e){
                 e->pai->dir=NULL;
-            delete e;
-        }else{
-            e->pai->esq=NULL;
-            delete e;
+                delete e;
+                cout <<"filho deletado!"<<endl;
+            }else{
+                e->pai->esq=NULL;
+                delete e;
+                cout <<"filho deletado!!"<<endl;
+            }
         }
     };
     Pessoa *remove1filho(Pessoa *e){
@@ -152,6 +155,7 @@ class Pessoa{
             e->pai->esq = e->dir;
           }
           delete e;
+
         }else{
             e->esq->pai = e->pai;
           if(e->pai->esq == e){
@@ -161,7 +165,8 @@ class Pessoa{
           }
           delete e;
         }
-    }
+    };
+
 
 
 };
