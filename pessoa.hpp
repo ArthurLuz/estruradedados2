@@ -7,14 +7,13 @@ class Pessoa{
   protected:
   string nome;
   int idade;
-
-
 //metodos da classe
   public:
 
     Pessoa *dir;
     Pessoa *esq;
     Pessoa *pai;
+    int altura,equilibrio;
     //construtor
   Pessoa(){
   nome="";
@@ -22,6 +21,7 @@ class Pessoa{
   dir=NULL;
   esq=NULL;
   pai=NULL;
+  altura=equilibrio=0;
   };
 //construtor com parametros , polimorfismo do tipo sobrecarga
   Pessoa(string n, int i){
@@ -30,6 +30,7 @@ class Pessoa{
   dir=NULL;
   esq=NULL;
   pai=NULL;
+  altura=equilibrio=0;
   };
 //metodos destrutor
   ~Pessoa(){
@@ -49,33 +50,73 @@ class Pessoa{
     idade= i;
   };
   void inserirfilho(Pessoa *novo){
+
       if (this->idade >= novo->idade) {
       //cout << " if " << endl;
-          if(this->esq!=NULL){
-        //    cout << "if ( 1 if " << endl;
-            this->esq->inserirfilho(novo);
-          }else{
+          if(this->esq!=NULL) this->esq->inserirfilho(novo);
+          else{
             this->esq = novo;
             novo->pai = this;
+            //Pessoa *aux=this;
+            //  cout << "aux->pai="<< aux->pai<<endl;
+            //  cout << "aux->dir=" <<aux->dir<<endl;
+            //  cout << "aux->esq=" <<aux->esq<<endl;
+            if(this->dir==NULL) this->altura++;
+
+            vertam(this);
+              // while(aux->pai!=NULL){
+              //   if(aux->pai->dir==NULL){
+              //     if
+              //     aux->pai->altura++;
+              //     aux=aux->pai;
+              //   }
+              // }
           }
+
       }else{
         //cout << "else if " << endl;
-        if(this->dir!=NULL){
-          //cout << "if ( 2 if " << endl;
-          this->dir->inserirfilho(novo);
-        }else{
+        if(this->dir!=NULL) this->dir->inserirfilho(novo);
+        else{
           this->dir = novo;
           novo->pai = this;
+          //Pessoa *aux2 = this;
+          if(this->esq==NULL) this->altura++;
+
+          vertam(this);
+          // while(aux2->pai!=NULL){
+          //   aux2->pai->altura++;
+          //   aux2=aux2->pai;
+          // }
         }
       }
+  };
+  void vertam(Pessoa *p){
+    if(this->pai!=NULL){
+      cout << "1 if"<<endl;
+      if(this->pai->dir==this){
+        cout << "2 if"<<endl;
+        if(this->pai->esq!=NULL&&this->pai->esq->altura<=this->altura||this->pai->esq==NULL){
+          cout << "3 if"<<endl;
+          this->pai->altura++;
+          //vertam(this->pai);
+        }
+      }else if(this->pai->esq==this){
+        cout << "5 if"<<endl;
+          if(this->pai->dir!=NULL&&this->pai->dir->altura<=this->altura||this->pai->dir==NULL){
+            cout << "6 if"<<endl;
+            this->pai->altura++;
+          //  vertam(this->pai);
+
+          }
+      }
+    }
   };
 //============Impromir=========================================================
     void Ordem () {
       if(this->esq != NULL)
         this->esq->Ordem();
 
-      cout << "nome: " <<this->getnome()<< endl;
-      cout << "Idade: " << this->getidade() << endl;
+      cout << "nome: " <<this->getnome()<<  "  | Idade: " << this->getidade() <<  "  | altura: " <<this->altura <<endl;
 
       if(this->dir != NULL)
       this->dir->Ordem();

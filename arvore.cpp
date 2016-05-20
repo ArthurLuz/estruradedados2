@@ -12,7 +12,7 @@ int idade;
 int main(int argc, char **argv){
 
 
-  for (int i=0; i<=8; i++){
+  for (int i=0; i<3; i++){
 
     novo = new Pessoa();
     cout << "informe o nome" << endl;
@@ -24,6 +24,7 @@ int main(int argc, char **argv){
     novo->setidade(idade);
     if(raiz==NULL){
       raiz =novo;
+      novo->pai=NULL;
     }else{
       raiz->inserirfilho(novo);
     }
