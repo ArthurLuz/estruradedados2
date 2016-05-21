@@ -57,20 +57,8 @@ class Pessoa{
           else{
             this->esq = novo;
             novo->pai = this;
-            //Pessoa *aux=this;
-            //  cout << "aux->pai="<< aux->pai<<endl;
-            //  cout << "aux->dir=" <<aux->dir<<endl;
-            //  cout << "aux->esq=" <<aux->esq<<endl;
-            if(this->dir==NULL) this->altura++;
-
-            vertam(this);
-              // while(aux->pai!=NULL){
-              //   if(aux->pai->dir==NULL){
-              //     if
-              //     aux->pai->altura++;
-              //     aux=aux->pai;
-              //   }
-              // }
+            //setaltura(this);
+            //cout << "altif : " <<this->altura<<endl;
           }
 
       }else{
@@ -79,47 +67,56 @@ class Pessoa{
         else{
           this->dir = novo;
           novo->pai = this;
-          //Pessoa *aux2 = this;
-          if(this->esq==NULL) this->altura++;
-
-          vertam(this);
-          // while(aux2->pai!=NULL){
-          //   aux2->pai->altura++;
-          //   aux2=aux2->pai;
-          // }
+          //setaltura(this);
+          //cout << "altelse : " <<this->altura<<endl;
         }
       }
-  };
-  void vertam(Pessoa *p){
-    if(this->pai!=NULL){
-      cout << "1 if"<<endl;
-      if(this->pai->dir==this){
-        cout << "2 if"<<endl;
-        if(this->pai->esq!=NULL&&this->pai->esq->altura<=this->altura||this->pai->esq==NULL){
-          cout << "3 if"<<endl;
-          this->pai->altura++;
-          //vertam(this->pai);
-        }
-      }else if(this->pai->esq==this){
-        cout << "5 if"<<endl;
-          if(this->pai->dir!=NULL&&this->pai->dir->altura<=this->altura||this->pai->dir==NULL){
-            cout << "6 if"<<endl;
-            this->pai->altura++;
-          //  vertam(this->pai);
+  };/*
+  void setaltura(Pessoa *P){
+      if(this->esq != NULL)     this->esq->Ordem();
 
-          }
-      }
-    }
+      if(this->dir != NULL)     this->dir->Ordem();
+  };*/
+  int vertam(Pessoa *h){
+    int u, v;
+    if (h == NULL) return -1;
+    u = vertam(h->esq);
+    v = vertam(h->dir);
+    this->equilibrio=v-u;
+    //cout<<"equi: "<<this->equilibrio<<endl;
+    if (u > v) return u+1;
+    else return v+1;
   };
-//============Impromir=========================================================
+//============AO MESMO TEMPO Q SETA A VARIAVEL EQUILIBRIO JA VAI EQUILIBRANDO A ARVORE========
+
+    /*void equilibrar () {
+      if(this->esq != NULL)      this->esq->equilibrar();
+      this->altura=vertam(this);
+      if(-1<=this->equilibrio<=1){
+        if (this->equilibrio>1){
+            if(this->dir->equilibrio<0){
+                //ROTA플O DUPLA A ESQUERDA
+            }else{
+                //ROTA플O A ESQUERDA
+            }
+        }else{
+            if(this->esq->equilibrio>0){
+                //ROTA플O DUPLA A DIREITA
+            }else{
+                //ROTA플O A DIRTEITA
+            }
+        }
+            //cout << "nome: " <<this->getnome()<<  "  | Idade: " << this->getidade() <<  "  | altura: " <<this->altura <<  "  | equi: " <<this->equilibrio <<endl;
+      }
+      if(this->dir != NULL)      this->dir->equilibrar();
+    };*/
+    //__________________________________________________________________________________
     void Ordem () {
-      if(this->esq != NULL)
-        this->esq->Ordem();
+      if(this->esq != NULL)      this->esq->Ordem();
 
-      cout << "nome: " <<this->getnome()<<  "  | Idade: " << this->getidade() <<  "  | altura: " <<this->altura <<endl;
+        cout << "nome: " <<this->getnome()<<  "  | Idade: " << this->getidade() <<  "  | altura: " <<this->altura <<  "  | equi: " <<this->equilibrio <<endl;
 
-      if(this->dir != NULL)
-      this->dir->Ordem();
+      if(this->dir != NULL)      this->dir->Ordem();
     };
     void PreOrdem () {
       cout << "nome: " <<this->getnome()<< endl;
