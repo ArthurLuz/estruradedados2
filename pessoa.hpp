@@ -89,7 +89,7 @@ class Pessoa{
   };
 //============AO MESMO TEMPO Q SETA A VARIAVEL EQUILIBRIO JA VAI EQUILIBRANDO A ARVORE========
 
-    /*void equilibrar () {
+    void equilibrar () {
       if(this->esq != NULL)      this->esq->equilibrar();
       this->altura=vertam(this);
       if(-1<=this->equilibrio<=1){
@@ -97,6 +97,20 @@ class Pessoa{
             if(this->dir->equilibrio<0){
                 //ROTAÇÃO DUPLA A ESQUERDA
             }else{
+                if(raiz==this){
+                    raiz = this->dir;
+                    if(raiz->esq==NULL){
+                        raiz->esq=this;
+                        raiz->pai=NULL;
+                        this->pai=raiz;
+                    }else{
+                        this->dir=raiz->esq;
+                        this->pai=raiz;
+                        this->dir->pai=this;
+                        raiz->esq=this;
+                    }
+                    //this->dir->esq=this->dir->pai;
+                }
                 //ROTAÇÃO A ESQUERDA
             }
         }else{
@@ -109,7 +123,7 @@ class Pessoa{
             //cout << "nome: " <<this->getnome()<<  "  | Idade: " << this->getidade() <<  "  | altura: " <<this->altura <<  "  | equi: " <<this->equilibrio <<endl;
       }
       if(this->dir != NULL)      this->dir->equilibrar();
-    };*/
+    };
     //__________________________________________________________________________________
     void Ordem () {
       if(this->esq != NULL)      this->esq->Ordem();
