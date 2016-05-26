@@ -50,83 +50,93 @@ class Pessoa{
     idade= i;
   };
   void inserirfilho(Pessoa *novo){
-
-      if (this->idade >= novo->idade) {
+      //if(raiz==NULL){      raiz =this;      this->pai=NULL}else{
+    if (this->idade >= novo->idade) {
       //cout << " if " << endl;
           if(this->esq!=NULL) this->esq->inserirfilho(novo);
           else{
             this->esq = novo;
             novo->pai = this;
-            //setaltura(this);
-            //cout << "altif : " <<this->altura<<endl;
+            this->altura=vertam(this);
+          cout <<" alt this: " << this->altura<<endl;
+          cout <<" alt dir: " << this->dir<<endl;
+          cout <<" alt esq: " << this->esq<<endl;
+            this->equilibrio=(vertam(this->dir))-(vertam(this->esq));
+            cout<<"aqui: "<<this->equilibrio<<endl;
+            //if(-1<=this->equilibrio<=1)
+            //rotacionar(this);
           }
-
       }else{
         //cout << "else if " << endl;
         if(this->dir!=NULL) this->dir->inserirfilho(novo);
         else{
           this->dir = novo;
           novo->pai = this;
+          this->altura=vertam(this);
+          cout <<" alt this: " << this->altura<<endl;
+          cout <<" alt dir: " << this->dir<<endl;
+          cout <<" alt esq: " << this->esq<<endl;
+          this->equilibrio=(vertam(this->dir))-(vertam(this->esq));
+          cout<<"equi: "<<this->equilibrio<<endl;
+          //if(-1<=this->equilibrio<=1)
+          //rotacionar(this);
           //setaltura(this);
           //cout << "altelse : " <<this->altura<<endl;
         }
       }
-  };/*
-  void setaltura(Pessoa *P){
-      if(this->esq != NULL)     this->esq->Ordem();
-
-      if(this->dir != NULL)     this->dir->Ordem();
-  };*/
+  };
   int vertam(Pessoa *h){
     int u, v;
     if (h == NULL) return -1;
     u = vertam(h->esq);
     v = vertam(h->dir);
-    this->equilibrio=v-u;
-    //cout<<"equi: "<<this->equilibrio<<endl;
+    //this->equilibrio=v-u;
     if (u > v) return u+1;
     else return v+1;
   };
 //============AO MESMO TEMPO Q SETA A VARIAVEL EQUILIBRIO JA VAI EQUILIBRANDO A ARVORE========
 
-    void equilibrar () {
-      if(this->esq != NULL)      this->esq->equilibrar();
-      this->altura=vertam(this);
-      if(-1<=this->equilibrio<=1){
+
+    void rotacaoESQ(Pessoa *p){
+        Pessoa *b = this->dir;
+        this->dir = b->esq;
+        b->esq=this;
+        p=b;
+    };
+    void rotacaoDIR(Pessoa *p){
+        Pessoa *b = this->esq;
+        this->esq=b->dir;
+        b->dir=this;
+        p=b;
+    };
+    void rotacao2ESQ(Pessoa *p){
+        rotacaoDIR(this->dir);
+        rotacaoESQ(this);
+    };
+    void rotacao2DIR(Pessoa *p){
+        rotacaoESQ(this->esq);
+        rotacaoDIR(this);
+    };
+     void rotacionar(Pessoa *p){
         if (this->equilibrio>1){
             if(this->dir->equilibrio<0){
-                //ROTA플O DUPLA A ESQUERDA
+                rotacao2ESQ(this);
             }else{
-                if(raiz==this){
-                    raiz = this->dir;
-                    if(raiz->esq==NULL){
-                        raiz->esq=this;
-                        raiz->pai=NULL;
-                        this->pai=raiz;
-                    }else{
-                        this->dir=raiz->esq;
-                        this->pai=raiz;
-                        this->dir->pai=this;
-                        raiz->esq=this;
-                    }
-                    //this->dir->esq=this->dir->pai;
-                }
-                //ROTA플O A ESQUERDA
+                rotacaoESQ(this);
             }
         }else{
             if(this->esq->equilibrio>0){
-                //ROTA플O DUPLA A DIREITA
+                rotacao2DIR(this);
             }else{
-                //ROTA플O A DIRTEITA
+                rotacaoDIR(this);
             }
         }
-            //cout << "nome: " <<this->getnome()<<  "  | Idade: " << this->getidade() <<  "  | altura: " <<this->altura <<  "  | equi: " <<this->equilibrio <<endl;
-      }
-      if(this->dir != NULL)      this->dir->equilibrar();
     };
     //__________________________________________________________________________________
     void Ordem () {
       if(this->esq != NULL)      this->esq->Ordem();
+      //this->altura=vertam(this);
+
 
         cout << "nome: " <<this->getnome()<<  "  | Idade: " << this->getidade() <<  "  | altura: " <<this->altura <<  "  | equi: " <<this->equilibrio <<endl;
 
@@ -218,15 +228,55 @@ class Pessoa{
           delete e;
         }
     };
+    void deletar2Filhos(Pessoa* pessoa){
+      int binario;
+      if(pessoa->pai->esq == pessoa){
+        binario = 0;
+      }else{
+        binario = 1;
+      }
+        if(pessoa->dir->esq == NULL){
+          if(binario == 0){
+            pessoa->pai->esq = pessoa->dir;
+          }else{
+            pessoa->pai->dir = pessoa->dir;
+          }
+          pessoa->dir>esq = pessoa->esq;
+          pessoa->dir->papai = pessoa->pai;
+          pessoa->esq->pai = pessoa->dir;
+          delete pessoa;
+        }else{
+          Pessoa* aux = pessoa->dir;
+          while(aux->esq != NULL){
+            aux = aux->esq;
+          }
+          if(aux->dir != NULL){
+              aux->dir->pai = aux->pai;
+           }
+           aux->pai->esq = aux->dir;
+
+          if(binario == 0){
+            pessoa->pai->esq = aux;
+          }else{
+            pessoa->pai->dir = aux;
+          }
+          aux->pai = pessoa->pai;
+          aux->esq= pessoa->esq;
+          aux->dir = pessoa->dir;
+          aux->esq->pai = aux;
+          aux->dir->papai = aux;
+          delete pessoa;
+        }
+    };
 
 
 
 };
 
+
   class Pessoafisica:public Pessoa{
 
-// atributos da classe
-  private:
+private:
     int CPF;
 //metodos da classe
   public:
