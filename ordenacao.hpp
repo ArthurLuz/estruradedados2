@@ -3,12 +3,13 @@
 #include <time.h>
 #include <cstdlib>
 using namespace std;
-
 //modela classe
 class Ordenacao{
   public:
-    int x,z;
+  int x,z;
    int vetor[20];
+   int inicio,fim;
+  //int meio=10;
 
   Ordenacao(){
     srand((unsigned int)time(NULL));
@@ -16,6 +17,8 @@ class Ordenacao{
     for(int i=0;i<20;i++){
 		    vetor[i] = rand()%100+1;
 	   }
+     inicio=0;
+     fim=20;
   };
   //~bubbles(){};
 
@@ -35,7 +38,7 @@ class Ordenacao{
     } while(z!=0);
 
   };
-
+//________________________________________________________________________________________
   void selectionsort(){
     for (int i=0;i<20;i++){
       z=vetor[i];
@@ -51,15 +54,53 @@ class Ordenacao{
 
   };
 
-  //
-  // void insertionsort(){
-  //   for (int i=0;i<20;i++){
-  //     int b=1;
-  //     while(vetor[i]<vetor[i+b]){
-  //       b++;
-  //
-  //     }
-  //       //if(vetor[i]
-  //   }
-  // }
+  //_____________________________________________________________________________________
+  void insertionSort() {
+        int key;
+
+      for (x = 1; x < 20; x++){
+        key = vetor[x];
+          for (z = x - 1; (z >= 0) && (vetor[z] > key); z--){
+             vetor[z + 1] = vetor[z];
+          }
+            vetor[z + 1] = key;
+      }
+  };
+//_________________________________________________________________________________________
+  void mergeSort() {
+
+  if (fim <= inicio) {
+		return;
+	}
+	int meio = (inicio + fim) / 2;
+	meio++;
+	//mergeSort();
+	int A [meio - inicio + 1];
+	int B [fim - meio];
+	for (int i = 0; i <= meio - inicio; i++) {
+		A[i] = vetor[inicio + i];
+	}
+	for (int i = 0; i <= fim - meio - 1; i++) {
+		B[i] = vetor[meio + 1 + i];
+	}
+  mergeSort();
+	int i = 0;
+	int j = 0;
+	for (int k = inicio; k <= fim; k++) {
+		if (i < meio - inicio + 1 && j < fim - meio) {
+			if (A[i] < B[j]) {
+				vetor[k] = A[i++];
+			} else {
+				vetor[k] = B[j++];
+			}
+		} else if (i < meio - inicio + 1) {
+			vetor[k] = A[i++];
+		} else if (j < fim - meio) {
+			vetor[k] = B[j++];
+		}
+	}
+}
+
+
+
 };
