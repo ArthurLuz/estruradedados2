@@ -123,7 +123,19 @@ class Ordenacao{
      }
      return;
 };
-    //quicksort(int vetor)
+    void quicksort(int *vetor,int tam){
+        int aux;
+        for (int i=0;i<tam;i++){
+            aux =vetor[i];
+            for (int j=tam;j>i;j--){
+                if (aux>vetor[j]){
+                    aux = vetor[j];
+                    vetor[j]=vetor[i];
+                    vetor[i]=aux;
+                }
+            }
+        }
+    };
 
 
 
