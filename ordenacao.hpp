@@ -7,26 +7,11 @@ using namespace std;
 class Ordenacao{
   public:
   int x,z;
-   int vetor[20];
-   int Vetor[20];
-   int inicio,fim;
-  //int meio=10;
-
-  Ordenacao(){
-    srand((unsigned int)time(NULL));
-
-    for(int i=0;i<20;i++){
-		    vetor[i] =0; //rand()%100+1;
-	   }
-     inicio=0;
-     fim=20;
-  };
   Ordenacao(int Vetor[]){
       /*for(int i=0;i<20;i++){
 		    vetor[i] = Vetor[i];
 	   }*/
     };
-  //~bubbles(){};
 
   void bublesort(int *vetor){
     z=20;
@@ -96,20 +81,17 @@ class Ordenacao{
             vetorTemp[k] = Vetor[j];
             j++;
             k++;
-        }
-        else {
+        }else {
             if (j == posicaoFim + 1) { // j passou do final da segunda metade, pegar v[i]
                 vetorTemp[k] = Vetor[i];
                 i++;
                 k++;
-            }
-            else {
+            }else {
                 if (Vetor[i] < Vetor[j]) {
                     vetorTemp[k] = Vetor[i];
                     i++;
                     k++;
-                }
-                else {
+                }else {
                     vetorTemp[k] = Vetor[j];
                     j++;
                     k++;
@@ -123,6 +105,25 @@ class Ordenacao{
     }
     free(vetorTemp);
 };
+    void ShellSort( int *vetor,int tamanho) {
+     int i, temp;
+     bool b = false;
+     int tam=tamanho;
+     while(tam > 1 || !b) {
+          tam = (tam+1) / 2;
+          b = false;
+          for (i = 0; i < (tamanho - tam); i++) {
+               if (vetor[i + tam] < vetor[i]) {
+                      temp = vetor[i + tam];
+                      vetor[i + tam] = vetor[i];
+                      vetor[i] = temp;
+                      b=true;
+               }
+          }
+     }
+     return;
+};
+    //quicksort(int vetor)
 
 
 

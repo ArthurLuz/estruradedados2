@@ -17,11 +17,12 @@ int main(int argc, char **argv){
     }
     int inicio=0;
     int fim=19;
-
-    x->mergeSort(vetor,inicio,fim);
-    x->selectionsort(vetor);
-    x->bublesort(vetor);
-    x->insertionSort(vetor);
+    int tam =20;
+   // x->mergeSort(vetor,inicio,fim);
+   // x->selectionsort(vetor);
+   // x->bublesort(vetor);
+    //x->insertionSort(vetor);
+    x->ShellSort(vetor,tam);
     for(int i=0;i<20;i++){
       cout << "ordenado:  "<< vetor[i] << endl; //mostra depois de ordenado
     }
