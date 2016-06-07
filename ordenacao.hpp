@@ -8,6 +8,7 @@ class Ordenacao{
   public:
   int x,z;
    int vetor[20];
+   int Vetor[20];
    int inicio,fim;
   //int meio=10;
 
@@ -15,14 +16,19 @@ class Ordenacao{
     srand((unsigned int)time(NULL));
 
     for(int i=0;i<20;i++){
-		    vetor[i] = rand()%100+1;
+		    vetor[i] =0; //rand()%100+1;
 	   }
      inicio=0;
      fim=20;
   };
+  Ordenacao(int Vetor[]){
+      /*for(int i=0;i<20;i++){
+		    vetor[i] = Vetor[i];
+	   }*/
+    };
   //~bubbles(){};
 
-  void bublesort(){
+  void bublesort(int *vetor){
     z=20;
     do{
       for (int i=0;i<20;i++){
@@ -39,7 +45,7 @@ class Ordenacao{
 
   };
 //________________________________________________________________________________________
-  void selectionsort(){
+  void selectionsort(int *vetor){
     for (int i=0;i<20;i++){
       z=vetor[i];
       for (x=i+1;x<20;x++){
@@ -55,7 +61,7 @@ class Ordenacao{
   };
 
   //_____________________________________________________________________________________
-  void insertionSort() {
+  void insertionSort(int *vetor) {
         int key;
 
       for (x = 1; x < 20; x++){
@@ -67,39 +73,56 @@ class Ordenacao{
       }
   };
 //_________________________________________________________________________________________
-  void mergeSort() {
+  void mergeSort(int *Vetor, int posicaoInicio, int posicaoFim) {
+    int i, j, k, metadeTamanho,*vetorTemp;
 
-  if (fim <= inicio) {
-		return;
-	}
-	int meio = (inicio + fim) / 2;
-	meio++;
-	//mergeSort();
-	int A [meio - inicio + 1];
-	int B [fim - meio];
-	for (int i = 0; i <= meio - inicio; i++) {
-		A[i] = vetor[inicio + i];
-	}
-	for (int i = 0; i <= fim - meio - 1; i++) {
-		B[i] = vetor[meio + 1 + i];
-	}
-  mergeSort();
-	int i = 0;
-	int j = 0;
-	for (int k = inicio; k <= fim; k++) {
-		if (i < meio - inicio + 1 && j < fim - meio) {
-			if (A[i] < B[j]) {
-				vetor[k] = A[i++];
-			} else {
-				vetor[k] = B[j++];
-			}
-		} else if (i < meio - inicio + 1) {
-			vetor[k] = A[i++];
-		} else if (j < fim - meio) {
-			vetor[k] = B[j++];
-		}
-	}
-}
+
+    if(posicaoInicio == posicaoFim) return;
+
+    // ordenacao recursiva das duas metades
+    metadeTamanho = (posicaoInicio + posicaoFim ) / 2;
+    mergeSort(Vetor, posicaoInicio, metadeTamanho);
+    mergeSort(Vetor, metadeTamanho + 1, posicaoFim);
+
+    // intercalacao no vetor temporario t
+    i = posicaoInicio;
+    j = metadeTamanho + 1;
+    k = 0;
+    int v [posicaoFim - posicaoInicio + 1];
+    vetorTemp = v ;
+
+    while(i < metadeTamanho + 1 || j  < posicaoFim + 1) {
+        if (i == metadeTamanho + 1 ) { // i passou do final da primeira metade, pegar v[j]
+            vetorTemp[k] = Vetor[j];
+            j++;
+            k++;
+        }
+        else {
+            if (j == posicaoFim + 1) { // j passou do final da segunda metade, pegar v[i]
+                vetorTemp[k] = Vetor[i];
+                i++;
+                k++;
+            }
+            else {
+                if (Vetor[i] < Vetor[j]) {
+                    vetorTemp[k] = Vetor[i];
+                    i++;
+                    k++;
+                }
+                else {
+                    vetorTemp[k] = Vetor[j];
+                    j++;
+                    k++;
+                }
+            }
+        }
+    }
+    // copia vetor intercalado para o vetor original
+    for(i = posicaoInicio; i <= posicaoFim; i++) {
+        Vetor[i] = vetorTemp[i - posicaoInicio];
+    }
+    free(vetorTemp);
+};
 
 
 
