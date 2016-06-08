@@ -123,18 +123,14 @@ class Ordenacao{
      }
      return;
 };
-    void quicksort(int *vetor,int tam){
-        int aux;
-        for (int i=0;i<tam;i++){
-            aux =vetor[i];
-            for (int j=tam;j>i;j--){
-                if (aux>vetor[j]){
-                    aux = vetor[j];
-                    vetor[j]=vetor[i];
-                    vetor[i]=aux;
-                }
-            }
+    void quicksort(int *vetor,int inicio,int fim){
+        int indexpivo;
+        if (inicio<fim){
+          // encontra o index pivo
+          quicksort(vetor,inicio,indexpivo-1);
+          quicksort(vetor,indexpivo+1,fmi);
         }
+
     };
 
 
