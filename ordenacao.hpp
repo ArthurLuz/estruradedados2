@@ -123,7 +123,35 @@ class Ordenacao{
      }
      return;
 };
-    void quicksort(int *vetor,int tam){
+void quickSort(int valor[], int esquerda, int direita){
+    int i, j;
+    i = esquerda;
+    j = direita;
+    x = valor[(esquerda + direita) / 2];
+
+    while(i <= j){
+        while(valor[i] < x && i < direita){
+            i++;
+        }
+        while(valor[j] > x && j > esquerda){
+            j--;
+        }
+        if(i <= j){
+            z = valor[i];
+            valor[i] = valor[j];
+            valor[j] = z;
+            i++;
+            j--;
+        }
+    }
+    if(j > esquerda){
+        quickSort(valor, esquerda, j);
+    }
+    if(i < direita){
+        quickSort(valor,  i, direita);
+    }
+};
+    /*void quicksort(int *vetor,int tam){
         int aux;
         for (int i=0;i<tam;i++){
             aux =vetor[i];
@@ -136,7 +164,8 @@ class Ordenacao{
             }
         }
     };
-
+*/
 
 
 };
+

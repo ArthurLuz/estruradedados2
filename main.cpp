@@ -22,7 +22,7 @@ int main(int argc, char **argv){
    // x->selectionsort(vetor);
    // x->bublesort(vetor);
     //x->insertionSort(vetor);
-    x->quicksort(vetor,tam);
+    x->quickSort(vetor,inicio,fim);
         for(int i=0;i<20;i++){
       cout << "ordenado:  "<< vetor[i] << endl; //mostra depois de ordenado
     }
@@ -33,5 +33,5 @@ int main(int argc, char **argv){
 
 
 
-}
+}//}
 
