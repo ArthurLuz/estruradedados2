@@ -123,6 +123,7 @@ class Ordenacao{
      }
      return;
 };
+<<<<<<< HEAD
 void quickSort(int valor[], int esquerda, int direita){
     int i, j;
     i = esquerda;
@@ -162,7 +163,16 @@ void quickSort(int valor[], int esquerda, int direita){
                     vetor[i]=aux;
                 }
             }
+=======
+    void quicksort(int *vetor,int inicio,int fim){
+        int indexpivo;
+        if (inicio<fim){
+          // encontra o index pivo
+          quicksort(vetor,inicio,indexpivo-1);
+          quicksort(vetor,indexpivo+1,fmi);
+>>>>>>> 83b0a0a4a99050d673747f00681b265728d4cabc
         }
+
     };
 */
 
