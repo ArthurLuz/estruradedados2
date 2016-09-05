@@ -49,42 +49,28 @@ class Pessoa{
   void setidade(int i){
     idade= i;
   };
-  void inserirfilho(Pessoa *novo){
-      //if(raiz==NULL){      raiz =this;      this->pai=NULL}else{
-    if (this->idade >= novo->idade) {
-      //cout << " if " << endl;
-          if(this->esq!=NULL) this->esq->inserirfilho(novo);
-          else{
-            this->esq = novo;
-            novo->pai = this;
-            this->altura=vertam(this);
-          cout <<" alt this: " << this->altura<<endl;
-          cout <<" alt dir: " << this->dir<<endl;
-          cout <<" alt esq: " << this->esq<<endl;
-            this->equilibrio=(vertam(this->dir))-(vertam(this->esq));
-            cout<<"aqui: "<<this->equilibrio<<endl;
-            //if(-1<=this->equilibrio<=1)
-            //rotacionar(this);
-          }
-      }else{
-        //cout << "else if " << endl;
-        if(this->dir!=NULL) this->dir->inserirfilho(novo);
-        else{
-          this->dir = novo;
-          novo->pai = this;
-          this->altura=vertam(this);
-          cout <<" alt this: " << this->altura<<endl;
-          cout <<" alt dir: " << this->dir<<endl;
-          cout <<" alt esq: " << this->esq<<endl;
-          this->equilibrio=(vertam(this->dir))-(vertam(this->esq));
-          cout<<"equi: "<<this->equilibrio<<endl;
-          //if(-1<=this->equilibrio<=1)
-          //rotacionar(this);
-          //setaltura(this);
-          //cout << "altelse : " <<this->altura<<endl;
+
+    void inserirfilho(Pessoa *pessoas){
+
+        if(this->idade>=pessoas->idade){
+                if(this->esq!=NULL){
+                    this->esq->inserirfilho(pessoas);
+                }
+                else{
+                    this->esq=pessoas;
+                }
+
         }
-      }
-  };
+        else{
+             if(this->dir!=NULL){
+                    this->dir->inserirfilho(pessoas);
+                }
+                else{
+                    this->dir=pessoas;
+                }
+        }
+
+};
   int vertam(Pessoa *h){
     int u, v;
     if (h == NULL) return -1;
@@ -206,125 +192,7 @@ class Pessoa{
                 delete e;
                 cout <<"filho deletado!!"<<endl;
             }
-        }
+
     };
-    Pessoa *remove1filho(Pessoa *e){
-        if(e->esq == NULL){ // verifica se o filho esta na esquerda ou direita
-          e->dir->pai = e->pai; //o pai do filho q vai ser deletado passa a ser o avo
-          if(e->pai->dir == e){
-            e->pai->dir= e->dir; //pai do e recebe o filho do e como filho
-          }else{
-            e->pai->esq = e->dir;
-          }
-          delete e;
-
-        }else{
-            e->esq->pai = e->pai;
-          if(e->pai->esq == e){
-            e->pai->esq = e->esq;
-          }else{
-            e->pai->dir = e->esq;
-          }
-          delete e;
-        }
     };
-    void deletar2Filhos(Pessoa* pessoa){
-      int binario;
-      if(pessoa->pai->esq == pessoa){
-        binario = 0;
-      }else{
-        binario = 1;
-      }
-        if(pessoa->dir->esq == NULL){
-          if(binario == 0){
-            pessoa->pai->esq = pessoa->dir;
-          }else{
-            pessoa->pai->dir = pessoa->dir;
-          }
-          pessoa->dir>esq = pessoa->esq;
-          pessoa->dir->papai = pessoa->pai;
-          pessoa->esq->pai = pessoa->dir;
-          delete pessoa;
-        }else{
-          Pessoa* aux = pessoa->dir;
-          while(aux->esq != NULL){
-            aux = aux->esq;
-          }
-          if(aux->dir != NULL){
-              aux->dir->pai = aux->pai;
-           }
-           aux->pai->esq = aux->dir;
-
-          if(binario == 0){
-            pessoa->pai->esq = aux;
-          }else{
-            pessoa->pai->dir = aux;
-          }
-          aux->pai = pessoa->pai;
-          aux->esq= pessoa->esq;
-          aux->dir = pessoa->dir;
-          aux->esq->pai = aux;
-          aux->dir->papai = aux;
-          delete pessoa;
-        }
-    };
-
-
-
 };
-
-
-  class Pessoafisica:public Pessoa{
-
-private:
-    int CPF;
-//metodos da classe
-  public:
-      Pessoafisica(){
-
-      };
-      Pessoafisica(string n, int i,int cpf){
-        nome  = n;
-        idade = i;
-        CPF = cpf;
-      };
-//metodo destrutor
-      ~Pessoafisica(){
-
-      };
-
-      int getcpf(){
-        return CPF;
-      };
-      void settipocambio(int cpf){
-        CPF = cpf;
-      };
-  };
-
-  class Pessoajuridica:public Pessoa{
-
-// atributos da classe
-  private:
-    int CNPJ;
-//metodos da classe
-  public:
-      Pessoajuridica(){
-
-      };
-      Pessoajuridica(string n, int i,int cnpj){
-        nome  = n;
-        idade = i;
-        CNPJ = cnpj;
-      };
-//metodo destrutor
-      ~Pessoajuridica(){
-
-      };
-
-      int getcnpj(){
-        return CNPJ;
-      };
-      void settipocambio(int cnpj){
-        CNPJ = cnpj;
-      };
-  };
